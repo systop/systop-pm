@@ -1,0 +1,39 @@
+<%= form_with(model: role, local: true) do |form| %>
+  <% if role.errors.any? %>
+    <div class="alert alert-info" id="error_explanation">
+      <h2><%= pluralize(role.errors.count, "error") %> prohibited this role from being saved:</h2>
+
+      <ul>
+      <% role.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%# form.text_field :title, id: :role_title %>
+    <%= form.select(:title, AdminSetting.where(alias: 'users_roles').first.value.split(",")) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :role_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :project_id, "Project..will be hidden" %>
+    <%= form.collection_select(:project_id, Project.all, :id, :title) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%# form.text_field :user_id, id: :role_user_id %>
+    <%= form.collection_select(:user_id, User.all, :id, :name) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,17 @@
+
+<h1>Projects</h1>
+
+<div class="list-group">
+    <% @projects.each do |project|  %>
+        <h2><%= link_to project.title, project, class: 'list-group-item' %></h2>
+        <!-- <td><div class="well well-sm"><%# project.description.html_safe %></div></td> -->
+        <%# link_to 'Edit', edit_project_path(project), class: 'btn btn-primary btn-lg' %>
+        <%# link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    <% end %>
+
+
+<br>
+
+</div>
+
+<%= link_to 'New Project', new_project_path, class: 'btn btn-success' if ['Administrators','Project Managers'].include? current_user.workgroup %>

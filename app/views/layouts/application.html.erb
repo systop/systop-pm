@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>UserShowProjectTask</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+      <%= nav_bar fixed: :top, brand: AdminSetting.where(alias: 'main_title').first.value, responsive: true, container: false do %>
+    <% if user_signed_in? %>
+        <%= menu_group do %>
+            <%= menu_item "Home", root_path %>
+            <%= menu_divider %>
+            <%= menu_item "Projects", projects_path %>
+            <% if current_user.workgroup == 'Administrators' %>
+              <%= drop_down "Admin Settings" do %>
+                  <%= menu_item "Tasks", tasks_path %>
+                  <%= menu_item 'Logs', logs_path %>
+                  <%= menu_item "Categories", categories_path %>
+                  <%= menu_item 'Admin Settings', admin_settings_path %>
+                  <%= menu_item 'Users', users_index_path %>
+                  <%= menu_item 'Roles', roles_path %>
+              <% end %>
+            <% end %>
+        <% end %>
+        <%= menu_group pull: :right do %>
+          <%= menu_item current_user.name, user_show_path(current_user.id)%>
+          <%= menu_item 'Выйти', destroy_user_session_path, :method => :delete %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+
+    <br><br>
+    <!-- <div class="container"> -->
+      <div class="container-fluid">
+      <%#byebug%>
+
+      <% flash.each do |key, message| %>
+      <%# byebug %>
+        <% class_tag = 'alert alert-dismissible ' %>
+        <% case key %>
+          <% when 'error' %>
+            <% class_tag += 'alert-danger' %>
+          <% when 'notice' %>
+            <% class_tag += 'alert-success' %>
+          <% when 'warning' %>
+            <% class_tag += 'alert-warning' %>
+          <% when 'alert' %>
+            <% class_tag += 'alert-warning' %>
+          <% when 'info' %>
+            <% class_tag += 'alert-info' %>
+          <% end %>
+        <div class="<%= class_tag %>" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <%# if message.html_safe? %>
+          <% if message && message != true %>
+            <%= message.html_safe %>
+            <%# key %>
+          <% else %>
+            <%= alert %>
+            <%# key %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+
+      <br><br>
+      
+      <%= nav_bar fixed: :bottom, brand: 'IMBD-manager', responsive: true, container: true, class: "navbar-inverse" do %>
+        <%= menu_group pull: :right do %>
+          <%= menu_text "Copyright © 2017" %>
+          <%= menu_item "systop.ru", 'https://systop.ru/' %>
+        <% end %>
+      <% end %>
+
+    </div>
+  </body>
+</html>

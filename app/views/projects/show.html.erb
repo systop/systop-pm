@@ -1,0 +1,65 @@
+    <div class="page-header"><h2><%= @project.title %></h2></div>
+<div>
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active"><a href="#tasks" aria-controls="tasks" role="tab" data-toggle="tab">Tasks</a></li>
+  <li role="presentation"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
+  <% if Role.where(user: current_user, project: @project.id, title: "Manager").exists? %>
+    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+  <% end %>
+</ul>
+
+<br>
+
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="tasks">
+    <h2>Tasks</h2>
+    <%= render 'tasks/layout', tasks: @tasks %>
+    <%= link_to 'New Task', new_task_path(project_id: @project.id), class: 'btn btn-success btn-xs', class: 'btn btn-success' %>
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="description">
+    <p>
+      <strong>Description:</strong>
+      <%= @project.description.html_safe %>
+    </p>
+  </div>
+
+  <% if Role.where(user: current_user, project: @project.id, title: "Manager").exists? %>
+    <div role="tabpanel" class="tab-pane" id="settings">
+      <% if current_user.workgroup == 'Administrators' || Role.where(user: current_user, project: @project.id, title: "Manager").exists? %>
+        <%= link_to 'Add user', new_role_path(project_id: @project.id), class: 'btn btn-default btn-xs' %>
+      <% end %>
+      <% if current_user.workgroup == 'Administrators' || Role.where(user: current_user, project: @project.id, title: "Manager").exists? %>
+        <%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-primary btn-xs' %>
+      <% end %>
+      <%= link_to 'Back', projects_path, class: 'btn btn-default btn-xs' %>
+      <%= link_to 'New Task', new_task_path(project_id: @project.id), class: 'btn btn-success btn-xs' %>
+
+      <%= link_to 'New Category', new_category_path(project_id: @project.id) %>
+
+      <h3>Categories:</h3>
+      <% @project.categories.each do |category| %>
+        <%= category.title %>
+      <% end %>
+          
+      <h3>People:</h3>
+      <% proj_roles = Role.where(project_id: @project.id).distinct.pluck(:title) %>
+      <% proj_roles.each do |inuq_role_title| %>
+        <%= "#{inuq_role_title}: " %>
+        <% alone_role = Role.where(project_id: @project.id, title: inuq_role_title) %>
+        <% alone_role.each do |role| %>
+          <%= link_to role.user.name, user_show_path(role.user.id) %>
+          <% if current_user.workgroup == 'Administrators' || Role.where(user: current_user, project: @project.id, title: "Manager").exists? %>
+            <%= link_to "edit", edit_role_path(role), class: 'label label-default' %>
+            <%= link_to 'del', role, method: :delete, data: { confirm: 'Are you sure?' }, class: 'label label-danger'  %>
+          <% end %>
+          <%= ", " if role != alone_role.last %>
+        <% end %>
+        <br>
+        <% end %>
+    </div>
+  <% end %>
+
+</div>
+
+</div>

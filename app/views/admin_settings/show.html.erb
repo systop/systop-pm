@@ -1,0 +1,27 @@
+<p>
+  <strong>Title:</strong>
+  <%= @admin_setting.title %>
+</p>
+
+<p>
+  <strong>Alias:</strong>
+  <%= @admin_setting.alias %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @admin_setting.value %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @admin_setting.description %>
+</p>
+
+<p>
+  <strong>For:</strong>
+  <%= @admin_setting.for %>
+</p>
+
+<%= link_to 'Edit', edit_admin_setting_path(@admin_setting) %> |
+<%= link_to 'Back', admin_settings_path %>

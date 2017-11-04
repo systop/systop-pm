@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Who:</strong>
+  <%= @log.who %>
+</p>
+
+<p>
+  <strong>Head:</strong>
+  <%= @log.head %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @log.body %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @log.level %>
+</p>
+
+<%= link_to 'Edit', edit_log_path(@log) %> |
+<%= link_to 'Back', logs_path %>

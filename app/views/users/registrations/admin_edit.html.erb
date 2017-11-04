@@ -1,0 +1,41 @@
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+<%= form_for @user, url: user_admin_update_path(@user) do |f| %>
+<%# form_for(resource, as: resource_name, url: user_admin_update_path(resource_name), html: { method: :patch }) do |f| %>
+<%#byebug%>
+<%# form_for(@user, url: user_admin_update_path(@user), html: { method: :patch }) do |f| %>
+
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone %>
+  </div>
+
+  <div class="field">
+    <%= f.label :workgroup %><br />
+    <%= f.select :workgroup, AdminSetting.where(alias: 'workgroups').first.value.split(",") %>
+  </div>
+
+  <div class="field">
+    <%= f.label :timezone %><br />
+    <%= f.time_zone_select :timezone, ActiveSupport::TimeZone.all.sort, model: ActiveSupport::TimeZone, default: "Moscow" %>
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit "Update", class: "btn" %>
+  </div>
+<% end %>
+
+
+<%= link_to "Back", :back %>

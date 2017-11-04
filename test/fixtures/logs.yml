@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  who: MyString
+  head: MyString
+  body: MyString
+  level: MyString
+
+two:
+  who: MyString
+  head: MyString
+  body: MyString
+  level: MyString

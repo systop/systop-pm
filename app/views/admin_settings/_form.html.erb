@@ -1,0 +1,42 @@
+<%= form_with(model: admin_setting, local: true) do |form| %>
+  <% if admin_setting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(admin_setting.errors.count, "error") %> prohibited this admin_setting from being saved:</h2>
+
+      <ul>
+      <% admin_setting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, id: :admin_setting_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :alias, 'generate automatically (will be hidden)' %>
+    <%= form.text_field :alias, id: :admin_setting_alias, disabled: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :value %>
+    <%= form.text_field :value, id: :admin_setting_value %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :admin_setting_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :for %>
+    <%= form.text_field :for, id: :admin_setting_for %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

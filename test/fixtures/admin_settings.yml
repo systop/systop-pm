@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  alias: MyString
+  value: MyString
+  description: MyText
+  for: MyString
+
+two:
+  title: MyString
+  alias: MyString
+  value: MyString
+  description: MyText
+  for: MyString

@@ -1,0 +1,88 @@
+<%= form_with(model: task, local: true, class: "form-horizontal") do |form| %>
+  <% if task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+      <% task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="form-group">
+      <div class="form-inline">
+        <%= form.label :author_id, class: 'control-label col-sm-2' %>
+        <% if current_user.workgroup == 'Administrators' || params[:action] != 'edit' %>
+          <%= form.collection_select(:author_id, User.all, :id, :name, {}, {class: "form-control"}) %>
+        <% else %>
+          <div class="form-control" readonly="readonly"><%= task.author.name %></div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-inline">
+        <%= form.label :category, class: 'control-label col-sm-2' %>
+        <%= form.collection_select(:category_id, Category.where(project: task.project), :id, :title, {}, {class: "form-control"}) %>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <div class="form-inline">
+        <%= form.label :status, class: 'control-label col-sm-2' %>
+        <%= form.select(:status, AdminSetting.where(alias: 'statuses_of_tasks').first.value.split(","), {}, class: "form-control") %>
+      </div>
+    </div>
+
+    <div class="form-group form-inline">
+      <%= form.label :project, class: 'control-label col-sm-2' %>
+      <% if current_user.workgroup == 'Administrators' || params[:action] != 'edit' %>
+        <%= form.collection_select(:project_id, Project.all, :id, :title, {}, {class: "form-control"}) %>
+      <% else %>
+        <div class="form-control" readonly="readonly"><%= task.project.title %></div>
+      <% end %>
+    </div>
+
+  <div class="form-group form-inline">
+    <%= form.label :assignee_id, class: 'control-label col-sm-2' %>
+    <%= form.collection_select(:assignee_id, User.all, :id, :name, {include_blank: true}, {class: "form-control"}) %>
+  </div>
+
+    <div class="form-inline form-group">
+      <%= form.label :parent_task_id, class: 'col-sm-2 control-label' %>
+
+      <% if current_user.workgroup == 'Administrators' || params[:action] != 'edit' %>
+        <%= form.collection_select(:parent_task_id, Task.all, :id, :title, {include_blank: true}, {class: "form-control"}) %>
+      <% else %>
+        <div class="form-control" readonly="readonly"><%= task.parent_task.title %></div>
+      <% end %>
+
+    </div>
+
+  <div class="form-inline form-group">
+    <%= form.label :sub_task_id, class: 'control-label col-sm-2' %>
+    <%= form.number_field :sub_task_id, id: :task_sub_task_id, disabled: true, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :title, class: 'control-label col-sm-2' %>
+    <% if current_user.workgroup == 'Administrators' || params[:action] != 'edit' || Role.where(user: current_user, project: task.project, title: "Manager").exists? || task.assignee == current_user || task.author == current_user %>
+      <%= form.text_field :title, id: :task_title, class: 'form-control' %>
+    <% else %>
+      <%= form.text_field :title, id: :task_title, class: 'form-control', disabled:true %>
+    <% end %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :description %>
+    <%# form.text_area :description, id: :task_description %>
+    <%= form.cktext_area :description, id: :task_description %>
+  </div>
+
+  <div>
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

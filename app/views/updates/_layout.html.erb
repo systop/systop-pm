@@ -1,0 +1,15 @@
+<% @updates.each do |update| %>
+	<div class="well well-sm">
+		  Updated by <%= link_to update.user.name, user_show_path(update.user.id) %> <%= update.created_at %>
+		  <br><%= update.body.html_safe %>
+
+		  <% unless update.diff.empty? %>
+		  	<br>Description changed: <%= link_to 'diff', update %>
+		  <% end %>
+
+		  <%= link_to 'Destroy', update, method: :delete, data: { confirm: 'Are you sure?' } if current_user.workgroup == 'Administrators' %>
+	</div>
+
+
+
+<% end %>

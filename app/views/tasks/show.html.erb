@@ -1,0 +1,69 @@
+<p class="lead text-center"><%= @task.title %></p>
+<!-- <div class="container-fluid"> -->
+<div class="row">
+  <div class="col-xs-6 col-md-3">
+    <dl class="dl-horizontal">
+      <dt>Status</dt>
+      <dd><%= @task.status %></dd>
+    </dl>
+ 
+    <dl class="dl-horizontal">
+      <dt>Category</dt>
+      <dd><%= @task.category.title %></dd>
+    </dl>
+  
+    <dl class="dl-horizontal">
+      <dt>Author</dt>
+      <dd><%= link_to @task.author.name, user_show_path(@task.author.id) %></dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+      <dt>Project</dt>
+      <dd><%= link_to @task.project.title, @task.project %></dd>
+    </dl>
+  
+    <dl class="dl-horizontal">
+      <dt>Assignee</dt>
+      <dd><%= link_to @task.assignee.name, user_show_path(@task.assignee.id) if @task.assignee %></dd>
+    </dl>
+  
+    <dl class="dl-horizontal">
+      <dt>Parent task</dt>
+      <dd><%= link_to @task.parent_task.title, @task.parent_task if @task.parent_task %></dd>
+    </dl>
+    
+    <% if current_user.workgroup == 'Administrators' || current_user == @task.assignee || current_user == @task.author || Role.where(user: current_user, project: @task.project, title: "Manager").exists? %>
+      <%# link_to 'New Subtask', new_task_path(project_id: @task.project.id, parent_task_id: @task.id), class: 'label label-success' %>
+      <%= link_to 'New Subtask', new_task_path(project_id: @task.project.id, parent_task_id: @task.id), class: 'btn btn-success btn-sm' %>
+      <%# link_to 'Edit', edit_task_path(@task), class: 'label label-info' %>
+      <%= link_to 'Edit', edit_task_path(@task), class: 'btn btn-info btn-sm' %>
+    <% end %>
+    <% if current_user.workgroup == 'Administrators' || current_user == @task.author || Role.where(user: current_user, project: @task.project, title: "Manager").exists? %>
+        <%# link_to 'Destroy', @task, method: :delete, data: { confirm: 'Are you sure?' }, class: 'label label-danger' %>
+        <%= link_to 'Destroy', @task, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+    <% end %>
+  </div>
+
+  <div class="col-xs-12 col-md-9">
+    <p>
+      <strong>Description:</strong>
+      <div class="well well-sm"><%= @task.description.html_safe %></div>
+    </p>
+  </div>
+</div>
+ <!-- </div> -->
+
+<!-- <button type="button" class="btn btn-primary btn-sm">Small button</button> -->
+
+
+<div class="row">
+  <div class="col-md-4">
+    <h2>Updates</h2>
+    <%= render 'updates/layout', updates: @updates = @task.updates %>
+  </div>
+  <div class="col-md-8">
+    <h2>Subtasks</h2>
+    <%= render 'tasks/layout', tasks: @tasks = @task.subtasks %>
+  </div>
+</div>
+

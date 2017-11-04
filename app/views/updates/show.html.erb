@@ -1,0 +1,29 @@
+
+
+<%= link_to 'Back', @update.task %>
+<p>
+  <strong>Task:</strong>
+  <%= @update.task.title %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @update.user.name %>
+</p>
+
+<p>
+  <strong>Diff:</strong>
+  <%= @update.body.html_safe %>
+</p>
+
+<p>
+  <strong>Diff DESC:</strong>
+  <%= @update.diff.html_safe %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @update.comment %>
+</p>
+<%= link_to 'Back', @update.task %>
+

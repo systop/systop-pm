@@ -1,0 +1,33 @@
+<h1>Admin Settings</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Alias</th>
+      <th>Value</th>
+      <th>Description</th>
+      <th>For</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_settings.each do |admin_setting| %>
+      <tr>
+        <td><%= admin_setting.title %></td>
+        <td><%= admin_setting.alias %></td>
+        <td><%= admin_setting.value %></td>
+        <td><%= admin_setting.description %></td>
+        <td><%= admin_setting.for %></td>
+        <!--<td><%# link_to 'Show', admin_setting %></td>-->
+        <td><%= link_to 'Edit', edit_admin_setting_path(admin_setting) %></td>
+        <!--<td><%# link_to 'Destroy', admin_setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin Setting', new_admin_setting_path %>
