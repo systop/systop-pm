@@ -1,5 +1,9 @@
 # README
 
+rails RAILS_ENV=production db:schema:load
+rails RAILS_ENV=production db:seed
+
+CONFIGURE_OPTS="--disable-install-rdoc" rbenv install 2.4.2
 x текседитор
 x создание таска с пустым парент таском
 x создание таска с пустым ассигни
