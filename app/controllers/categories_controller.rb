@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
-  before_action :check_permission
   before_action :authenticate_user!
+  before_action :check_permission
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   # GET /categories
@@ -77,13 +77,13 @@ class CategoriesController < ApplicationController
 
     def check_permission
       #byebug
-      unless current_user.workgroup == 'Administrators' || Role.where(user: current_user, project: params[:project_id], title: "Manager").exists?
+      unless current_user.workgroup == 'Administrators' || Role.where(user: current_user, project: params[:project_id], title: "Manager").exists? || Role.where(user: current_user, project: params[:category][:project_id], title: "Manager").exists?
         if params.has_key? :project_id
           redirect_to Project.find(params[:project_id])
         else
           redirect_to root_path
         end
-        flash[:error] = "Access denied. You have not enough rights"
+        flash[:error] = "Access denied. You have not enough rights | #{params}"
       end
     end
 
