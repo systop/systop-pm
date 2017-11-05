@@ -17,32 +17,32 @@ admin.skip_confirmation!
 admin.save!
 
 #xander - development
-xander = User.new email: 'xanderpronin@gmail.com',
-                 name: 'Xander',
-                 password: '123123',
-                 password_confirmation: '123123',
-                 workgroup: 'Users',
-                 timezone: "Moscow"
-xander.skip_confirmation!
-xander.save!
+# xander = User.new email: 'xanderpronin@gmail.com',
+#                  name: 'Xander',
+#                  password: '123123',
+#                  password_confirmation: '123123',
+#                  workgroup: 'Users',
+#                  timezone: "Moscow"
+# xander.skip_confirmation!
+# xander.save!
 
-chuck = User.new email: 'chuck@norris.cool',
-                 name: 'Chuck Norris',
-                 password: '123123',
-                 password_confirmation: '123123',
-                 workgroup: 'Users',
-                 timezone: "Moscow"
-chuck.skip_confirmation!
-chuck.save!
+# chuck = User.new email: 'chuck@norris.cool',
+#                  name: 'Chuck Norris',
+#                  password: '123123',
+#                  password_confirmation: '123123',
+#                  workgroup: 'Users',
+#                  timezone: "Moscow"
+# chuck.skip_confirmation!
+# chuck.save!
 
-zik = User.new email: '123@123.123',
-                 name: '123test',
-                 password: '123123',
-                 password_confirmation: '123123',
-                 workgroup: 'Users',
-                 timezone: "Moscow"
-zik.skip_confirmation!
-zik.save!
+# zik = User.new email: '123@123.123',
+#                  name: '123test',
+#                  password: '123123',
+#                  password_confirmation: '123123',
+#                  workgroup: 'Users',
+#                  timezone: "Moscow"
+# zik.skip_confirmation!
+# zik.save!
 
 settting = AdminSetting.new title: 'Logs Archive Depth',
                  alias: 'logs_archive_depth',
@@ -68,3 +68,10 @@ settting.save!
 project = Project.new title: 'Blog',
                 description: 'posting tickets'
 project.save!
+
+settting = AdminSetting.new title: 'Statuses of tasks',
+                 alias: 'statuses_of_tasks',
+                 value: 'Open,In progress,Closed,Blocked,Feedback',
+                 description: 'List of available statuses of tasks',
+                 for: 'Task'
+settting.save!
