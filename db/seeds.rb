@@ -65,9 +65,16 @@ settting = AdminSetting.new title: 'Users roles',
                  for: 'Project'
 settting.save!
 
-project = Project.new title: 'Blog',
-                description: 'posting tickets'
-project.save!
+settting = AdminSetting.new title: 'Main Title',
+                 alias: 'main_title',
+                 value: 'SYSTOP PM',
+                 description: 'Title on the page head',
+                 for: 'Decor'
+settting.save!
+
+# project = Project.new title: 'Blog',
+#                 description: 'posting tickets'
+# project.save!
 
 settting = AdminSetting.new title: 'Statuses of tasks',
                  alias: 'statuses_of_tasks',
