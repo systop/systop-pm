@@ -1,5 +1,8 @@
 # README
 
+- насервере должен быть установлен ImageMagic (для загрузки картинок на сервер)
+
+
 rails RAILS_ENV=production db:schema:load
 rails RAILS_ENV=production db:seed
 

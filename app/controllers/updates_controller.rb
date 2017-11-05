@@ -80,7 +80,8 @@ class UpdatesController < ApplicationController
 
     def check_permission
       #byebug
-      unless current_user.workgroup == 'Administrators'
+      #raise 'dfg'
+      unless current_user.workgroup == 'Administrators' || Role.where(user: current_user, project: Update.find(params[:id]).task.project.id, title: "Manager").exists?
         redirect_to root_path
         flash[:error] = "Access denied. You have not enough rights"
       end
