@@ -55,7 +55,9 @@ module TasksHelper
 			#before_task may has not assigne before update
 			if @task_before.assignee.nil?
 				update.body += "<br>assignee changed from Nobody to #{@task.assignee.name}"
-			else
+			elsif @task_after.assignee.nil?
+				update.body += "<br>assignee changed from #{@task_before.assignee.name} to Nobody"
+			else 
 				update.body += "<br>assignee changed from #{@task_before.assignee.name} to #{@task.assignee.name}"
 			end
 			changed = true
