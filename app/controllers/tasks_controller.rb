@@ -67,9 +67,9 @@ class TasksController < ApplicationController
       # end
       
     respond_to do |format|
-      #byebug
       before #helper save task before changes for UPDATE
       if @task.update(task_params)
+      # byebug
         after
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
@@ -110,7 +110,7 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :description, :author_id, :project_id, :assignee_id, :parent_task_id, :sub_task_id, :status, :category_id)
+      params.require(:task).permit(:title, :description, :author_id, :project_id, :assignee_id, :parent_task_id, :sub_task_id, :status, :category_id, :update)
     end
 
     def admin_author_assignee_manager(task, denied_action)

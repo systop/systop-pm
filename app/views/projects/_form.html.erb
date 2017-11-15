@@ -21,7 +21,8 @@
     <%= form.cktext_area :description, id: :project_description %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-group">
+    <%= form.submit 'Update', class: 'btn btn-primary' %>
+    <%= link_to 'Back', @project, class: 'btn btn-default' %>
   </div>
 <% end %>

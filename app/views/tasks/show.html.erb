@@ -42,13 +42,25 @@
         <%# link_to 'Destroy', @task, method: :delete, data: { confirm: 'Are you sure?' }, class: 'label label-danger' %>
         <%= link_to 'Destroy', @task, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
     <% end %>
+    <!-- ***************** -->
+    <hr>
+    <h2>Updates</h2>
+      <%= render 'updates/layout', updates: @updates = @task.updates %>
   </div>
+
+
 
   <div class="col-xs-12 col-md-9">
     <p>
       <strong>Description:</strong>
       <div class="well well-sm"><%= @task.description.html_safe %></div>
     </p>
+
+
+    <!-- ***************** -->
+    <hr>
+    <h2>Subtasks</h2>
+    <%= render 'tasks/layout', tasks: @tasks = @task.subtasks %>
   </div>
 </div>
  <!-- </div> -->
@@ -56,7 +68,7 @@
 <!-- <button type="button" class="btn btn-primary btn-sm">Small button</button> -->
 
 
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-4">
     <h2>Updates</h2>
     <%= render 'updates/layout', updates: @updates = @task.updates %>
@@ -65,5 +77,5 @@
     <h2>Subtasks</h2>
     <%= render 'tasks/layout', tasks: @tasks = @task.subtasks %>
   </div>
-</div>
+</div> -->
 

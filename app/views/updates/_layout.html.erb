@@ -7,6 +7,10 @@
 		  	<br>Description changed: <%= link_to 'diff', update %>
 		  <% end %>
 
+		  <% unless update.comment.nil? %>
+		  	<hr> <%= update.comment.html_safe %>
+		  <% end %>
+
 		  <%= link_to 'Destroy', update, method: :delete, data: { confirm: 'Are you sure?' } if current_user.workgroup == 'Administrators' %>
 	</div>
 

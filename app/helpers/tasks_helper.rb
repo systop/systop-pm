@@ -31,45 +31,51 @@ module TasksHelper
 		update.body = ''
 		update.diff = ''
 
+		#update.comment = 
+		unless params[:task][:update][:comment].empty?
+			update.comment = params[:task][:update][:comment]
+			changed = true
+		end
+
 		if @task_before.status != @task.status
-			update.body += "<br>Status changed from #{@task_before.status} to #{@task.status}"
+			update.body += "<br>Status changed from <strong>#{@task_before.status}</strong> to <strong>#{@task.status}</strong>"
 			changed = true
 		end
 
 		if @task_before.title != @task.title
-			update.body += "<br>title changed from #{@task_before.title} to #{@task.title}"
+			update.body += "<br>title changed from <strong>#{@task_before.title}</strong> to <strong>#{@task.title}</strong>"
 			changed = true
 		end
 
 		if @task_before.author != @task.author
-			update.body += "<br>author changed from #{@task_before.author} to #{@task.author}"
+			update.body += "<br>author changed from <strong>#{@task_before.author}</strong> to <strong>#{@task.author}</strong>"
 			changed = true
 		end
 
 		if @task_before.project != @task.project
-			update.body += "<br>project changed from #{@task_before.project} to #{@task.project}"
+			update.body += "<br>project changed from <strong>#{@task_before.project}</strong> to <strong>#{@task.project}</strong>"
 			changed = true
 		end
 
 		if @task_before.assignee != @task.assignee
 			#before_task may has not assigne before update
 			if @task_before.assignee.nil?
-				update.body += "<br>assignee changed from Nobody to #{@task.assignee.name}"
+				update.body += "<br>assignee changed from Nobody to <strong>#{@task.assignee.name}</strong>"
 			elsif @task.assignee.nil?
-				update.body += "<br>assignee changed from #{@task_before.assignee.name} to Nobody"
+				update.body += "<br>assignee changed from <strong>#{@task_before.assignee.name}</strong> to Nobody"
 			else 
-				update.body += "<br>assignee changed from #{@task_before.assignee.name} to #{@task.assignee.name}"
+				update.body += "<br>assignee changed from <strong>#{@task_before.assignee.name}</strong> to <strong>#{@task.assignee.name}</strong>"
 			end
 			changed = true
 		end
 
 		if @task_before.parent_task != @task.parent_task
-			update.body += "<br>parent_task changed from #{@task_before.parent_task} to #{@task.parent_task}"
+			update.body += "<br>parent_task changed from <strong>#{@task_before.parent_task}</strong> to <strong>#{@task.parent_task}</strong>"
 			changed = true
 		end
 
 		if @task_before.category != @task.category
-			update.body += "<br>category changed from #{@task_before.category.title} to #{@task.category.title}"
+			update.body += "<br>category changed from <strong>#{@task_before.category.title}</strong> to <strong>#{@task.category.title}</strong>"
 			changed = true
 		end
 
@@ -81,7 +87,7 @@ module TasksHelper
 		update.task = @task
 		update.user = current_user
 
-		update.save
+		update.save if changed
 	end
 
 	def make_diff(unchanged_task, task)

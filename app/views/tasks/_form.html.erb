@@ -82,7 +82,16 @@
     <%= form.cktext_area :description, id: :task_description %>
   </div>
 
+  <%# fields_for(@task, @task.update.build) do |u| %>
+  <%= form.fields_for :update do |a| %>
+    <!-- <div class="field form-group"> -->
+      <%= a.label :comment %>
+      <%= a.cktext_area :comment, id: :task_comment %>
+    <!-- </div> -->
+  <% end %>
+
   <div>
-    <%= form.submit class: "btn btn-primary" %>
+    <%= form.submit 'Update', class: 'btn btn-primary' %>
+    <%= link_to 'Back', @task, class: 'btn btn-default' %>
   </div>
 <% end %>

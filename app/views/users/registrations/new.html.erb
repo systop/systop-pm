@@ -20,7 +20,7 @@
 
   <div class="field">
     <%= f.label :workgroup, "Workgroup (спрятать в будущем)" %><br />
-    <%= f.text_field :workgroup, value: AdminSetting.where(alias: 'workgroups').first.value.split(",")[1],disabled: true %>
+    <%= f.text_field :workgroup, value: AdminSetting.where(alias: 'workgroups').first.value.split(",")[1], readonly: true %>
   </div>
 
   <div class="field">
