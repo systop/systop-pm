@@ -11,12 +11,17 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="tasks">
-    	<% @tasks = Task.where assignee: current_user %>
-    	<%= render 'tasks/layout', tasks: @tasks %>
+    	<%# @tasks = Task.where assignee: current_user %>
+      <% @tasks = Task.where(assignee: current_user).order('id DESC').page(params[:page]) %>
+      <%= paginate @tasks %>
+      <%= render 'tasks/layout', tasks: @tasks %>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="created_tasks">
-    	<% @tasks = Task.where author: current_user %>
+
+      <% @tasks = Task.where(author: current_user).order('id DESC').page(params[:page]) %>
+      <%= paginate @tasks %>
+
     	<%= render 'tasks/layout', tasks: @tasks %>
     </div>
 

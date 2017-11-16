@@ -12,6 +12,6 @@ class Task < ApplicationRecord
 	#has_one :category, class_name: "Category", foreign_key: 'category_id'
 	belongs_to :category
 
-	#paginates_per 7
+	paginates_per 15
 	#work with controller
 end

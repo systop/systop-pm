@@ -91,7 +91,8 @@
   <% end %>
 
   <div>
-    <%= form.submit 'Update', class: 'btn btn-primary' %>
+    <%# form.submit 'Update', class: 'btn btn-primary' %>
+    <%= form.submit class: 'btn btn-primary' %>
     <%= link_to 'Back', @task, class: 'btn btn-default' %>
   </div>
 <% end %>

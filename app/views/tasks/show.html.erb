@@ -59,8 +59,17 @@
 
     <!-- ***************** -->
     <hr>
-    <h2>Subtasks</h2>
-    <%= render 'tasks/layout', tasks: @tasks = @task.subtasks %>
+    <h2>Subtasks<span>
+
+
+    <%# @tasks = Task.where(author: current_user).order('id DESC').page(params[:page]) %>
+    <% @tasks = @task.subtasks.order('id DESC').page(params[:page]) %>
+
+    <%= paginate @tasks %>
+
+</span></h2>
+    <%= render 'tasks/layout', tasks: @tasks %>
+    
   </div>
 </div>
  <!-- </div> -->
