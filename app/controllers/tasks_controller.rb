@@ -8,8 +8,15 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    return unless only_admin 'see all tasks'
-    @tasks = Task.all
+    #return unless only_admin 'see all tasks'
+    #@tasks = Task.all
+    @q = Task.ransack(params[:q])
+    @tasks = @q.result.page(params[:page])
+    # raise '999'
+    if params[:q].has_key? :project_id_eq
+      render "projects/show", project: @project = Project.find(params[:q][:project_id_eq]), tasks: @tasks, q: @q, id: params[:q][:project_id_eq]
+    end
+    # Parameters: {"utf8"=>"✓", "q"=>{"title_cont"=>"T", "project_id_eq"=>"4"}, "commit"=>"Search"}
   end
 
   # GET /tasks/1

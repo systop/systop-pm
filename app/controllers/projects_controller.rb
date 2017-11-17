@@ -18,8 +18,10 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    #@tasks = Task.where(project_id: @project.id)
-    @tasks = Task.where(project_id: @project.id).order('id DESC').page(params[:page])
+    @paramz = params
+    # @q = Task.where(project_id: @project.id).ransack(params[:q])
+    @q = @project.tasks.ransack(params[:q])
+    @tasks = @q.result.page(params[:page])
   end
 
   # GET /projects/new

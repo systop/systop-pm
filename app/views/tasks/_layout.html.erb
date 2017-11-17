@@ -1,5 +1,6 @@
       <%# params %>
 
+
 <table class="table table-striped table-condensed">
   <thead>
     <tr>
@@ -8,12 +9,18 @@
       <th>Category</th>
       <th>Author</th>
       <%#byebug%>
-      <% unless params[:controller] == "projects" %>
+      <%# unless params[:controller] == "projects" %>
+        <%# unless params[:controller] == "tasks" && params[:action] == "show" %>
+          <th>Project</th>
+          <th>Sub task</th>
+        <%# end %>
+      <%# end %>
+<!--       <% unless params[:controller] == "projects" %>
         <% unless params[:controller] == "tasks" && params[:action] == "show" %>
           <th>Project</th>
           <th>Sub task</th>
         <% end %>
-      <% end %>
+      <% end %> -->
 
       <% unless params[:controller] == "users/registrations" %>
         <th>Assignee</th>
@@ -32,12 +39,18 @@
         <td><%= task.category.title unless task.category.nil? %></td>
         <td><%= link_to task.author.name, user_show_path(task.author.id) %></td>
         <%#byebug%>
-        <% if params[:controller] != "projects" %>
+        <%# if params[:controller] != "projects" %>
+          <%# unless params[:controller] == "tasks" && params[:action] == "show" %>
+            <td><%= link_to task.project.title, task.project %></td>
+            <td><%= collection_select(:task, :subtask, task.subtasks, :id, :title, :onchange => "window.location.replace('/'+this.value);") if task.subtasks.size > 0 %></td>
+          <%# end %>
+        <%# end %>
+<!--         <% if params[:controller] != "projects" %>
           <% unless params[:controller] == "tasks" && params[:action] == "show" %>
             <td><%= link_to task.project.title, task.project %></td>
             <td><%= collection_select(:task, :subtask, task.subtasks, :id, :title, :onchange => "window.location.replace('/'+this.value);") if task.subtasks.size > 0 %></td>
           <% end %>
-        <% end %>
+        <% end %> -->
         <% unless params[:controller] == "users/registrations" %>
           <td>
             <% if task.assignee %>
