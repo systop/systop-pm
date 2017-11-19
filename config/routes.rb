@@ -4,12 +4,17 @@ Rails.application.routes.draw do
   resources :categories
   mount Ckeditor::Engine => '/ckeditor'
   resources :tasks
+  # resources :tasks do
+  #   collection { post :search, to: 'projects#show' }
+  # end
   resources :roles
   resources :logs
-  resources :projects
-  # resources :projects do
-  #   resources :categories
-  # end
+  # resources :projects
+  resources :projects do
+    # collection { post :search, to: 'projects#show' }
+    collection { get ':id/search', to: 'projects#show', via: [:get, :post], as: "search" }
+  end
+    get 'add_search' => 'projects#add_search'
 
 
 

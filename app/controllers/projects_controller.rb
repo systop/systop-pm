@@ -18,10 +18,30 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @paramz = params
-    # @q = Task.where(project_id: @project.id).ransack(params[:q])
-    @q = @project.tasks.ransack(params[:q])
+    # @q = @project.tasks.ransack(project_id_eq: @project.id)
+  
+if @tasks
+  @q = @tasks.ransack(params[:q])
+  @tasks = @q.result.page(params[:page])
+else
+  @q = @project.tasks.ransack(params[:q])
     @tasks = @q.result.page(params[:page])
+    #@q.build_condition if @q.conditions.empty? # for pocedure fields with conditions
+    @q.build_sort if @q.sorts.empty?
+end
+
+    
+
+    # @q = @project.tasks.ransack(params[:q])
+    # @tasks = @q.result.page(params[:page])
+    # @q.build_condition if @q.conditions.empty?
+    # @q.build_sort if @q.sorts.empty?
+  end
+
+  def add_search
+     # @q = @project.tasks.ransack(params[:q])
+     # @q.build_condition
+     render html: @q.build_condition.html_safe
   end
 
   # GET /projects/new
@@ -29,6 +49,8 @@ class ProjectsController < ApplicationController
     check_permission
     @project = Project.new
   end
+
+
 
   # GET /projects/1/edit
   def edit

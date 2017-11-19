@@ -22,6 +22,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    @tasks = @task.subtasks.page(params[:page])
   end
 
   # GET /tasks/new
