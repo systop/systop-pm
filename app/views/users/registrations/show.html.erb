@@ -1,54 +1,50 @@
-<div role="navigation">
+<div>
 
   <!-- Nav tabs -->
   <!-- <ul class="nav nav-tabs" role="tablist"> -->
   <ul class="nav nav-tabs">
-    <li role="presentation" class="active"><a href="#tasks" aria-controls="tasks" role="tab" data-toggle="tab">Tasks assigned to me</a></li>
+    <li role="presentation" class="active"><a href="#assigned_tasks" aria-controls="assigned_tasks" role="tab" data-toggle="tab">Tasks assigned to me</a></li>
     <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-    <li role="presentation"><a href="#created_tasks" aria-controls="created_tasks" role="tab" data-toggle="tab">Created Tasks</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="tasks">
-    	<%# @tasks = Task.where assignee: current_user %>
-      <% @tasks = Task.where(assignee: current_user).order('id DESC').page(params[:page]) %>
-      <%= paginate @tasks %>
-      <%= render 'tasks/layout', tasks: @tasks %>
-    </div>
 
-    <div role="tabpanel" class="tab-pane" id="created_tasks">
-
-      <% @tasks = Task.where(author: current_user).order('id DESC').page(params[:page]) %>
-      <%= paginate @tasks %>
-
-    	<%= render 'tasks/layout', tasks: @tasks %>
+    <div role="tabpanel" class="tab-pane active" id="assigned_tasks">
+      <%# @tasks = Task.where(author: current_user).order('id DESC').page(params[:page]) %>
+      <%# paginate @tasks %>
+      <%= render 'tasks/search_form', 
+                  url: user_show_path(current_user.id), 
+                  basic: [{ title: 'Assignee equals', 
+                          symbol: :assignee_id_eq, 
+                          value: current_user.id }] %>
+      <%= render 'tasks/layout', tasks: @tasks_assigned %>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="profile">
-		<p>
-		  <strong>Name:</strong>
-		  <%= @user.name %>
-		</p>
+  		<p>
+  		  <strong>Name:</strong>
+  		  <%= @user.name %>
+  		</p>
 
-		<p>
-		  <strong>Workgroup:</strong>
-		  <%= @user.workgroup %>
-		</p>
+  		<p>
+  		  <strong>Workgroup:</strong>
+  		  <%= @user.workgroup %>
+  		</p>
 
-		<p>
-		  <strong>Timezone:</strong>
-		  <%= @user.timezone %>
-		</p>
+  		<p>
+  		  <strong>Timezone:</strong>
+  		  <%= @user.timezone %>
+  		</p>
 
-		<p>
-		  <strong>Email:</strong>
-		  <%= @user.email %>
-		</p>
+  		<p>
+  		  <strong>Email:</strong>
+  		  <%= @user.email %>
+  		</p>
 
-		<%= link_to 'Редактировать профиль', edit_user_registration_path, class: "btn" if @user == current_user %>
+  		<%= link_to 'Редактировать профиль', edit_user_registration_path, class: "btn" if @user == current_user %>
 
-		<%= link_to 'Изменить', user_admin_edit_path, class: "btn" if current_user.workgroup == 'Administrators' %>
+  		<%= link_to 'Изменить', user_admin_edit_path, class: "btn" if current_user.workgroup == 'Administrators' %>
     </div>
   </div>
 

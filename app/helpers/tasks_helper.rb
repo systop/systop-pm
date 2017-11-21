@@ -1,4 +1,30 @@
 module TasksHelper
+	# users/registrations
+	def search_form_url
+		if params[:controller] == 'projects'
+  			url = project_path(@project.id)
+		elsif params[:controller] == 'tasks'
+  			url = task_path(@task.id)
+  		elsif params[:controller] == 'users/registrations'
+  			url = user_show_path(current_user.id)
+		end
+	end
+
+	def search_form_project_id
+		if params[:controller] == 'projects'
+  			project_id = @project.id
+		elsif params[:controller] == 'tasks'
+  			project_id = @task.project.id
+		end
+	end
+
+	def search_form_project_statuses
+		if params[:controller] == 'projects'
+  			@project.tasks.pluck(:status).uniq
+		elsif params[:controller] == 'tasks'
+  			@tasks.pluck(:status).uniq
+		end
+	end
 
 	##<Task id: 18, title: "Phone ble", description: "<p><img alt=\"\" src=\"/ckeditor_assets/pictures/4/co...", author_id: 4, project_id: 4, assignee_id: 4, parent_task_id: 4, sub_task_id: nil, created_at: "2017-11-02 15:25:13", updated_at: "2017-11-02 18:09:41", status: "Closed", category_id: "2">
 

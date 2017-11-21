@@ -5,11 +5,7 @@
   <thead>
     <tr>
       <th>
-        <% if params[:controller] == 'tasks' %>
-            Title
-        <% else %>
-          <%= sort_link(@q, :title) %>
-        <% end %>
+        <%= sort_link(@q, :title) %>
       </th>
       <th>Status</th>
       <th>Category</th>

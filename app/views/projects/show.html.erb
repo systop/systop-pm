@@ -14,7 +14,11 @@
 
 <div class="tab-content">
   <div role="tabpanel" class="tab-pane active" id="tasks">
-    <%= render 'tasks/search_form' %>
+    <%= render 'tasks/search_form', 
+                url: project_path(@project.id), 
+                basic: [{ title: 'Project equals', 
+                          symbol: :project_id_eq, 
+                          value: @project.id }] %>
     <%= render 'tasks/layout', tasks: @tasks %>
     <%# paginate @tasks %>
     <%# raise 'd' %>
@@ -71,14 +75,3 @@
 </div>
 
 </div>
-
-<script type="text/javascript">
-  // var  xpath = "//*[@value='project_id' and @selected='selected']/ancestor::div[@class='field']";
-  // var a = document.evaluate( xpath, document, null, XPathResult.ANY_TYPE, null ); 
-  // a.iterateNext().setAttribute('style','display: none;');
-  // console.log("project filter is hidden");
-  function clearStatuses() {
-    var a = document.querySelectorAll('[id^="q_status_in_"]'); 
-    for (i=0;i<a.length;i++) { a[i].checked=false; }
-  }
-</script>

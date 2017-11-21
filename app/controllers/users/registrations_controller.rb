@@ -20,6 +20,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def show
     @user = User.find(params[:id])
+
+    @tasks = Task.where(assignee: current_user).page(params[:page])
+    @q = @tasks.ransack(params[:q])
+    @tasks = @q.result.page(params[:page])
+
+    # @tasks_authored = Task.where(author: current_user).page(params[:page])
+    # @q_authored = @tasks_authored.ransack(params[:q])
+    # @tasks_authored = @q_authored.result.page(params[:page])
   end
 
   # POST /resource

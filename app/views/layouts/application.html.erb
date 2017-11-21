@@ -27,7 +27,7 @@
             <% end %>
         <% end %>
         <%= menu_group pull: :right do %>
-          <%= menu_item current_user.name, user_show_path(current_user.id)%>
+          <%= menu_item current_user.name, user_show_path(current_user.id) %>
           <%= menu_item 'Выйти', destroy_user_session_path, :method => :delete %>
         <% end %>
       <% end %>

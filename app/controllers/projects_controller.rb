@@ -19,23 +19,15 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     # @q = @project.tasks.ransack(project_id_eq: @project.id)
-  
-if @tasks
-  @q = @tasks.ransack(params[:q])
-  @tasks = @q.result.page(params[:page])
-else
-  @q = @project.tasks.ransack(params[:q])
-    @tasks = @q.result.page(params[:page])
-    #@q.build_condition if @q.conditions.empty? # for pocedure fields with conditions
-    @q.build_sort if @q.sorts.empty?
-end
-
-    
-
-    # @q = @project.tasks.ransack(params[:q])
-    # @tasks = @q.result.page(params[:page])
-    # @q.build_condition if @q.conditions.empty?
-    # @q.build_sort if @q.sorts.empty?
+    if @tasks
+      @q = @tasks.ransack(params[:q])
+      @tasks = @q.result.page(params[:page])
+    else
+      @q = @project.tasks.ransack(params[:q])
+      @tasks = @q.result.page(params[:page])
+      #@q.build_condition if @q.conditions.empty? # for pocedure fields with conditions
+      @q.build_sort if @q.sorts.empty?
+    end
   end
 
   def add_search

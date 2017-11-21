@@ -22,7 +22,16 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
-    @tasks = @task.subtasks.page(params[:page])
+    #@all_tasks = 
+    #if @tasks
+     # @q = @tasks.ransack(params[:q])
+    #  @tasks = @q.result.page(params[:page])
+   # else
+      @tasks = @task.subtasks
+    # -----------------------------
+      @q = @tasks.ransack(params[:q])
+      @tasks = @q.result.page(params[:page])
+    #end
   end
 
   # GET /tasks/new

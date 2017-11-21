@@ -65,6 +65,12 @@
     <%# paginate @tasks %>
 
 </span></h2>
+<%#%raise '2'%>
+    <%= render 'tasks/search_form', 
+    url: task_path(@task.id), 
+    basic: [{ title: 'Parent task equals', 
+              symbol: :parent_id_eq, 
+              value: @task.id }] %>
     <%= render 'tasks/layout', tasks: @tasks %>
     <%# paginate @tasks %>
     
