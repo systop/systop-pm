@@ -82,3 +82,10 @@ settting = AdminSetting.new title: 'Statuses of tasks',
                  description: 'List of available statuses of tasks',
                  for: 'Task'
 settting.save!
+
+settting = AdminSetting.new title: 'Tasks per page',
+                 alias: 'tasks_per_page',
+                 value: '15',
+                 description: '',
+                 for: 'Tasks'
+settting.save!

@@ -12,6 +12,7 @@ class Task < ApplicationRecord
 	#has_one :category, class_name: "Category", foreign_key: 'category_id'
 	belongs_to :category
 
-	paginates_per 3
+	#paginates_per 3
+	paginates_per AdminSetting.where(alias: 'tasks_per_page').first.value.to_i
 	#work with controller
 end
