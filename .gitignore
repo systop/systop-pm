@@ -26,3 +26,7 @@ config/database.yml
 config/secrets.yml
 
 app/assets/images
+
+public/assets/
+
+public/ckeditor_assets/pictures
