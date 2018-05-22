@@ -40,12 +40,20 @@ module HomeHelper
 				unless val == "0" || key == "RUB"
 					price = ticker["#{key}_RUB"]["avg"]
 					summ = val.to_f * price.to_f # summ in rubles
-					summ -= summ*0.002 # summ in rubles after exchange
+					# summ -= summ*0.002 # summ in rubles after exchange
+					yandex_rub += summ
+				end
+			end
+			user_info["reserved"].each do |key,val|
+				unless val == "0" || key == "RUB"
+					price = ticker["#{key}_RUB"]["avg"]
+					summ = val.to_f * price.to_f # summ in rubles
+					# summ -= summ*0.002 # summ in rubles after exchange
 					yandex_rub += summ
 				end
 			end
 			yandex_rub += user_info["balances"]["RUB"].to_f
-			yandex_rub -= yandex_rub*0.03 # RUBLES after withdraw
+			# yandex_rub -= yandex_rub*0.03 # RUBLES after withdraw
 		end
 
 	end
